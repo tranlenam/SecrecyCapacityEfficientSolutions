@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+YALMIP_RELEASE=R20230622
+# install YALMIP and SDPT3
+curl -L https://github.com/yalmip/YALMIP/archive/refs/tags/$YALMIP_RELEASE.tar.gz | tar xz
+mkdir deps && cd deps
+curl -L https://github.com/sqlp/sdpt3/archive/master.tar.gz | tar xz
+cd .. 
+matlab -nodisplay -r "addpath(genpath('deps')); savepath"
+matlab -nodisplay -r "addpath(genpath('/YALMIP-$YALMIP_RELEASE')); savepath; \
+    addpath(genpath('deps')); savepath"
